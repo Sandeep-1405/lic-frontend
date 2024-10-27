@@ -11,7 +11,7 @@ const CustomerDetails = () => {
 
     const onClickSubmit = async(e) =>{
         e.preventDefault();
-        const response = await axios.post('http://localhost:3001/customer',{name,phoneNumber,email,address})
+        const response = await axios.post('https://lic-backend.vercel.app/customer',{name,phoneNumber,email,address})
         console.log(response);
         setName('')
         setAddress('')

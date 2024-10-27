@@ -8,7 +8,7 @@ const Admin = () => {
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const customers = await axios.get('http://localhost:3001');
+                const customers = await axios.get('https://lic-backend.vercel.app');
                 console.log(customers.data.customers);
                 setCustomerDetails(customers.data.customers);
             } catch (error) {
