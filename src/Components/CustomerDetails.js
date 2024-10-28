@@ -7,28 +7,42 @@ const CustomerDetails = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
-    const [msg,setMsg] = useState('')
+    const [msg, setMsg] = useState('');
+    const [error, setError] = useState('');
 
-    const onClickSubmit = async(e) =>{
+    const onClickSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post('https://lic-backend-production.up.railway.app/customer',{name,phoneNumber,email,address})
-        console.log(response);
-        setName('')
-        setAddress('')
-        setEmail('')
-        setPhoneNumber('')
-        setMsg('Cool, Our Agent Will concact soon!!')
-    }
+        setMsg('');
+        setError('');
+
+        try {
+            const response = await axios.post('https://lic-backend-production.up.railway.app/customer', {
+                name,
+                phoneNumber,
+                email,
+                address
+            });
+            console.log(response);
+            setName('');
+            setPhoneNumber('');
+            setEmail('');
+            setAddress('');
+            setMsg('Cool, Our Agent Will Contact You Soon!');
+        } catch (err) {
+            console.error(err);
+            setError('Oops! Something went wrong. Please try again.');
+        }
+    };
 
     return (
         <div className="container my-5">
-            <h2 className="text-center mb-4">Thanks for choosing LIC </h2>
-            <form className="form border w-75 m-auto" onSubmit={onClickSubmit}>
+            <h2 className="text-center mb-4">Thanks for Choosing LIC</h2>
+            <form className="form border p-4 w-75 m-auto" onSubmit={onClickSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label text-center ">Name</label>
+                    <label htmlFor="name" className="form-label">Name</label>
                     <input
                         type="text"
-                        className="form-control w-75 m-auto"
+                        className="form-control"
                         id="name"
                         placeholder="Enter your name..."
                         value={name}
@@ -37,14 +51,16 @@ const CustomerDetails = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="phoneNumber" className="form-label ml-5">Phone Number</label>
+                    <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
                     <input
                         type="tel"
-                        className="form-control w-75 m-auto"
+                        className="form-control"
                         id="phoneNumber"
                         placeholder="Enter your phone number..."
                         value={phoneNumber}
                         onChange={e => setPhoneNumber(e.target.value)}
+                        pattern="[0-9]{10}"
+                        title="Please enter a valid 10-digit phone number."
                         required
                     />
                 </div>
@@ -52,7 +68,7 @@ const CustomerDetails = () => {
                     <label htmlFor="email" className="form-label">Email (optional)</label>
                     <input
                         type="email"
-                        className="form-control w-75 m-auto"
+                        className="form-control"
                         id="email"
                         placeholder="Enter your email..."
                         value={email}
@@ -62,7 +78,7 @@ const CustomerDetails = () => {
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label">Address</label>
                     <textarea
-                        className="form-control w-75 m-auto"
+                        className="form-control"
                         id="address"
                         placeholder="Enter your address..."
                         rows="2"
@@ -72,11 +88,12 @@ const CustomerDetails = () => {
                     ></textarea>
                 </div>
                 <div className="text-center mb-3">
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary w-50">Submit</button>
                 </div>
-                
             </form>
-            <h3 className='text-success'>{msg}</h3>
+
+            {msg && <h4 className="text-success text-center mt-4">{msg}</h4>}
+            {error && <h4 className="text-danger text-center mt-4">{error}</h4>}
         </div>
     );
 };

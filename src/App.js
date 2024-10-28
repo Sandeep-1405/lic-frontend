@@ -5,6 +5,7 @@ import Admin from './Components/admin';
 import CustomerDetails from './Components/CustomerDetails';
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
