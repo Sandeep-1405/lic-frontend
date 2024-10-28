@@ -11,7 +11,7 @@ const CustomerDetails = () => {
 
     const onClickSubmit = async(e) =>{
         e.preventDefault();
-        const response = await axios.post('https://lic-backend.vercel.app/customer',{name,phoneNumber,email,address})
+        const response = await axios.post('https://lic-backend-production.up.railway.app/customer',{name,phoneNumber,email,address})
         console.log(response);
         setName('')
         setAddress('')
@@ -25,7 +25,7 @@ const CustomerDetails = () => {
             <h2 className="text-center mb-4">Thanks for choosing LIC </h2>
             <form className="form border w-75 m-auto" onSubmit={onClickSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Name</label>
+                    <label htmlFor="name" className="form-label text-center ">Name</label>
                     <input
                         type="text"
                         className="form-control w-75 m-auto"
@@ -37,7 +37,7 @@ const CustomerDetails = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                    <label htmlFor="phoneNumber" className="form-label ml-5">Phone Number</label>
                     <input
                         type="tel"
                         className="form-control w-75 m-auto"
